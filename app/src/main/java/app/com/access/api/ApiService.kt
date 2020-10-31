@@ -8,6 +8,6 @@ interface ApiService {
 
     fun getDetail(login:String): Single<Detail>
 
-    fun getItems(page: Int): Single<List<Item>>
+    fun getItems(since: Int): Single<List<Item>>
 
 }

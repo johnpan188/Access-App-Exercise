@@ -13,7 +13,7 @@ class ApiServiceImpl : ApiService {
     }
 
     override fun getItems(since: Int): Single<List<Item>> {
-        return Rx2AndroidNetworking.get("https://api.github.com/users?per_page=100&since=${since}")
+        return Rx2AndroidNetworking.get("https://api.github.com/users?per_page=20&since=${since}")
             .build()
             .getObjectListSingle(Item::class.java)
     }

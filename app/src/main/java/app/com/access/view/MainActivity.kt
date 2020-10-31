@@ -21,25 +21,19 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private lateinit var itemViewModel: MainViewModal
     private lateinit var adapter: MainAdapter
-    private var loading = true
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
         uiRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = MainAdapter(arrayListOf())
+        adapter = MainAdapter()
         uiRecyclerView.adapter = adapter
         uiRecyclerView.addItemDecoration(MyItemDecorator())
         itemViewModel =  ViewModelProviders.of(this, MyViewModelFactory(MyRepository(ApiServiceImpl()))).get(MainViewModal::class.java)
         itemViewModel.fetchItems()
         itemViewModel.getItems().observe(this, Observer {
-
-            adapter.addItem(it)
-            adapter.notifyDataSetChanged()
-            loading = false
-
+                adapter.submitList(it)
         })
     }
 
